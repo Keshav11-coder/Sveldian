@@ -32,6 +32,37 @@
 	function changeskip(bool) {
 		includeSkip = bool;
 	}
+
+	let check1i;
+	let check2i;
+
+	function check0i(event) {
+		if (index != 2 && index != 3 && index != 4) {
+			let bool = check2i();
+			if (bool[0] == true) {
+			}
+			if (bool[1] == true) {
+			}
+			if (bool[0] == false && bool[1] == false) {
+				index =
+					index != 4
+						? (index = index + 1)
+						: index == 4
+						? (index = 4)
+						: (index = index);
+			}
+		} else {
+			let bool = check1i();
+			if(bool == false){
+				index =
+					index != 4
+						? (index = index + 1)
+						: index == 4
+						? (index = 4)
+						: (index = index);
+			}
+		}
+	}
 </script>
 
 <div class="document" id="doc">
@@ -48,6 +79,7 @@
 						gi2t="text"
 						gi1max={200}
 						gi2max={200}
+						bind:check2i
 					/>
 					<Sfi Value={activatorValue} {index} />
 				</div>
@@ -62,6 +94,7 @@
 						gi1max={200}
 						gi2max={7}
 						skip={includeSkip}
+						bind:check2i
 					/>
 					<Sfi Value={activatorValue} {index} />
 				</div>
@@ -80,9 +113,11 @@
 						</h4>
 					</div>
 					<Gi1Div
-						gi="click here"
+						gi="{deviceWidth < 1000 ? 'click here' : deviceWidth > 1000 ? 'minimum 30 words' : ''}"
 						activator={true}
 						bind:activatorValue
+						bind:check1i
+						ext={true}
 					/>
 					{#if deviceWidth < 1000}
 						<!---->
@@ -109,6 +144,8 @@
 						gi="your profession"
 						activator={true}
 						bind:activatorValue
+						bind:check1i
+						ext={false}
 					/>
 					{#if deviceWidth < 1000}
 						<Suggested Value={activatorValue} />
@@ -127,7 +164,13 @@
 						<h3 class="--description">Give us a hint!</h3>
 						<h4 class="--description-sub">What are your skills?</h4>
 					</div>
-					<Gi1Div gi="skills" activator={true} bind:activatorValue />
+					<Gi1Div
+						gi="skills"
+						activator={true}
+						bind:activatorValue
+						bind:check1i
+						ext={false}
+					/>
 					{#if deviceWidth < 1000}
 						<Suggested Value={activatorValue} />
 					{:else if deviceWidth > 1000}
@@ -141,12 +184,7 @@
 					{#if index != 4}
 						<div
 							class="forw btn"
-							on:click={() =>
-								index != 4
-									? (index = index + 1)
-									: index == 4
-									? (index = 4)
-									: (index = index)}
+							on:click={() => check0i()}
 							on:keydown={handleKeyDown}
 						>
 							<h3 class="bl">next</h3>
@@ -166,6 +204,13 @@
 					{#if index != 4}
 						<div
 							class="forw btn"
+							on:click={() => check0i()}
+							on:keydown={handleKeyDown}
+						>
+							<h3 class="bl">next</h3>
+						</div>
+						<div
+							class="skip btn"
 							on:click={() =>
 								index != 4
 									? (index = index + 1)
@@ -174,9 +219,6 @@
 									: (index = index)}
 							on:keydown={handleKeyDown}
 						>
-							<h3 class="bl">next</h3>
-						</div>
-						<div class="skip btn">
 							<h3 class="ppl">skip</h3>
 						</div>
 					{:else if index == 4}
@@ -494,7 +536,7 @@
 		}
 
 		.--description {
-			font-size: 1.0vw;
+			font-size: 1vw;
 			margin-bottom: 2%;
 		}
 

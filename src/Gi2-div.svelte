@@ -10,30 +10,86 @@
 
     export let skip = false;
 
-    export const check2i = function check2i(string1, string2){
-        if(string1 != '' && string2 != ''){
-            
+    var input1Error = false;
+    var input2Error = false;
+    let inputValue1 = "";
+    let inputValue2 = "";
+    export const check2i = function check2i() {
+        if (inputValue1 == "") {
+            input1Error = true;
+            console.log(`string 1 ${input1Error}`);
+            console.log(`string 2 ${input2Error}`);
+        } else {
+            input1Error = false;
         }
-        console.log("string empty")
+        if (inputValue2 == "") {
+            input2Error = true;
+            console.log(`string 1 ${input1Error}`);
+            console.log(`string 2 ${input2Error}`);
+        } else {
+            input2Error = false;
+        }
+        if (inputValue1 != "" && inputValue2 != "") {
+            input1Error = false;
+            input2Error = false;
+            console.log(`string 1 ${input1Error}`);
+            console.log(`string 2 ${input2Error}`);
+        }
+        return [input1Error, input2Error];
+    };
+
+    function handleInput1(event) {
+        inputValue1 = event.target.value;
     }
+
+    function handleInput2(event) {
+        inputValue2 = event.target.value;
+    }
+
+    const deviceWidth = window.innerWidth;
 </script>
 
-<div class={skip ? "gi21-div" : "gi2-div"} id="border-ray-div">
-    <input
-        type={gi1t}
-        class="ginput-1"
-        maxlength={gi1max}
-        placeholder={gi1}
-        id="i"
-    />
-    <input
-        type={gi2t}
-        class="ginput-1"
-        maxlength={gi2max}
-        placeholder={gi2}
-        id="i"
-    />
-</div>
+{#if deviceWidth < 1000}
+    <div class={skip ? "gi21-div" : "gi2-div"} id="border-ray-div">
+        <input
+            type={gi1t}
+            class="ginput-1 {input1Error ? 'ginput-err' : ''}"
+            maxlength={gi1max}
+            placeholder={gi1}
+            on:input={handleInput1}
+            id="1"
+        />
+        <input
+            type={gi2t}
+            class="ginput-1 {input2Error ? 'ginput-err' : ''}"
+            maxlength={gi2max}
+            placeholder={gi2}
+            on:input={handleInput2}
+            id="2"
+        />
+    </div>
+{:else if deviceWidth > 1000}
+    <div class={skip ? "gi21-div" : "gi2-div"} id="border-ray-div">
+        <input
+            type={gi1t}
+            class="ginput-1"
+            maxlength={gi1max}
+            placeholder={gi1}
+            on:input={handleInput1}
+            id="1"
+            style="{input1Error ? 'border: var(--borderSize) solid red;' : ''}"
+        />
+        <input
+            type={gi2t}
+            class="ginput-1 {input2Error ? 'ginput-err' : ''}"
+            maxlength={gi2max}
+            placeholder={gi2}
+            on:input={handleInput2}
+            id="2"
+            style="{input1Error ? 'border: var(--borderSize) solid red;' : ''}"
+        />
+    </div>
+{/if}
 
 <style>
     @media (prefers-color-scheme: light) {
@@ -79,7 +135,7 @@
     }
 
     .ginput-1 {
-        transition: ease-in-out 0.4s;
+        transition: ease-in-out 0.2s;
         border-style: none;
         outline: none;
         width: 100%;
@@ -97,6 +153,10 @@
         border: var(--borderSize) solid var(--SdPurpleAlt);
 
         color: var(--placeHC);
+    }
+
+    .ginput-err {
+        border: var(--borderSize) solid red;
     }
 
     ::placeholder {
