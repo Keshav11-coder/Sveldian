@@ -1,23 +1,24 @@
 <script>
     export let state;
-    export let xtend = false;
+    export let page = 0;
     export let searchValue = "";
-    export let Updater;
+    export let sUpdater;
+    export let nUpdater;
     export let clearer;
 
     let Value = true;
     function handleKd(event) {}
 
-    function extend() {
-        if (xtend == false) {
+    function esearch() {
+        if (page != 1) {
             Value = !Value;
         }
-        xtend = true;
+        page = 1;
     }
 
     function clearSearch() {
         document.querySelector("input").value = "";
-        xtend = false;
+        page = 0;
         Value = true;
         clearer();
     }
@@ -25,18 +26,40 @@
     function getSearch() {
         let em = document.querySelector("input");
         searchValue = em.value;
-        Updater(searchValue);
+        sUpdater(searchValue);
+    }
+
+    function enotif() {
+        if (page != 2) {
+            Value = !Value;
+        }
+        page = 2;
+    }
+
+    function clearNotif() {
+        document.querySelector("input").value = "";
+        page = 0;
+        Value = true;
+        clearer();
+    }
+
+    function getNotif() {
+        let em = document.querySelector("input");
+        searchValue = em.value;
+        nUpdater();
     }
 </script>
 
 <div class={state ? "topNav" : "navFocus"}>
-    {#if xtend == false}<!---->{:else if xtend == true}
+    {#if page == 0}<!---->{:else if page == 1}
         <div class="cancel" on:click={clearSearch} on:keydown={handleKd} />
+    {:else if page == 2}
+        <div class="cancel" on:click={clearNotif} on:keydown={handleKd} />
     {/if}
     <div
-        on:click={extend}
+        on:click={esearch}
         on:keydown={handleKd}
-        class="search {Value ? '' : 'search-h'}"
+        class="search {Value ? '' : page == 2 ? 'search-d' : 'search-h'}"
     >
         <input
             type="search"
@@ -48,11 +71,19 @@
     <div class="page-title {Value ? '' : 'pt-r'}">
         <h3 class="--title">Home</h3>
     </div>
-    <div
-        class="notifications {Value ? '' : 'notifications-h'}"
-        on:click={getSearch}
-        on:keydown={handleKd}
-    />
+    {#if page == 1}
+        <div
+            class="notifications {Value ? '' : 'notifications-h'}"
+            on:click={getSearch}
+            on:keydown={handleKd}
+        />
+    {:else if page == 0}
+        <div
+            class="notifications {Value ? '' : 'notifications-h'}"
+            on:click={enotif}
+            on:keydown={handleKd}
+        />
+    {/if}
 </div>
 
 <style>
@@ -112,6 +143,7 @@
         background-size: 60% 60%;
         background-repeat: no-repeat;
         background-position: center;
+        opacity: 1;
     }
 
     .search:after {
@@ -126,6 +158,7 @@
         background: none;
         margin-left: 2%;
         transition: ease-in-out 0.3s;
+        opacity: 1;
     }
 
     .search-h:after {
@@ -134,6 +167,19 @@
         content: "";
     }
 
+    .search-d {
+        width: 80%;
+        background: none;
+        margin-left: 2%;
+        transition: ease-in-out 0s;
+        opacity: 0;
+    }
+
+    .search-d:after {
+        display: block;
+        padding-bottom: 0%;
+        content: "";
+    }
     .page-title {
         width: 24%;
         height: 9%;

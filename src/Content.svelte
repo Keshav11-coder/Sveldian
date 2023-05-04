@@ -6,11 +6,14 @@
     let returnedItems = []; //NOTE: THIS VARIABLE IS TEMPORARY. there will be replacements placed in the future, meaning this is NOT the official solution
 
     export let topNavVisible = true;
-    export let xtend;
+    export let search;
+    export let page = 0;
 
-    export const callSearchClear = function callSearchClear (){
+    export const callSearchClear = function callSearchClear() {
         sval = "";
-    }
+    };
+
+    let notifications = [];
 
     let items = [
         // turn into fetch
@@ -57,9 +60,15 @@
     ];
 
     export const sUpdater = function sUpdater(data) {
-        if (data != "" && xtend == true) {
+        if (data != "" && page == 1) {
             sval = data;
             returnedItems = updateContent(results);
+        }
+    };
+
+    export const nUpdater = function nUpdater() {
+        if (page == 2) {
+            returnedItems = updateContent(notifications);
         }
     };
 
@@ -86,13 +95,15 @@
     }
 </script>
 
-{#if !xtend}
+{#if page == 0}
     <div class="wrapper0 {topNavVisible ? '' : 'wrapper1'}">
         <div class="content" on:scroll={() => handleScroll()} id="content">
             {#each items as item}
                 <div class="container" id="UIDSCI-0000">
                     <!--Unique ID Skilldian Content Item - * * * *-->
-                    <div class="im"><img class="image" src={item.url} alt="logo" /></div>
+                    <div class="im">
+                        <img class="image" src={item.url} alt="logo" />
+                    </div>
                     <div class="item" style="border: 0.7vw solid {item.oc};">
                         <div
                             class="role-r2"
@@ -121,7 +132,7 @@
             {/each}
         </div>
     </div>
-{:else if xtend}
+{:else if page == 1}
     {#if sval == ""}
         <div class="wrapper0">
             <h3 class="u-t">results will be shown here</h3>
@@ -167,6 +178,53 @@
             </div>
         </div>
     {/if}
+{:else if page == 2}
+    {#if !notifications}
+        <div class="wrapper0">
+            <div class="content" on:scroll={() => handleScroll()} id="content">
+                {#each returnedItems as item}
+                    <div class="container" id="UIDSCI-0000">
+                        <!--Unique ID Skilldian Content Item - * * * *-->
+                        <div class="im">
+                            <img class="image" src={item.url} alt="logo" />
+                        </div>
+                        <div
+                            class="item"
+                            style="border: 0.7vw solid {item.oc};"
+                        >
+                            <div
+                                class="role-r2"
+                                style="border-bottom: 0.7vw solid {item.oc};"
+                            >
+                                <h3 class="--item-t1">{item.opp}</h3>
+                            </div>
+                            <div class="b-r2">
+                                <div
+                                    class="c b-r2-i2"
+                                    style="border-right: 0.35vw solid {item.oc};"
+                                >
+                                    <h3 class="--item-t1">@{item.cc}</h3>
+                                </div>
+                                <div
+                                    class="n-rr b-r2-i2"
+                                    style="border-left: 0.35vw solid {item.oc};"
+                                >
+                                    <i
+                                        class="fa-regular fa-solid fa-caret-right fa-2x"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    {:else}
+        <div class="wrapper2">
+            <h3 class="u-t"><a class="ut-a" href="">sign up</a> to see notifications</h3>
+            <h3 class="u-ts">Please note that the full app is not released yet, so your account will be put on a waitlist. We're extremely sorry for the inconvenience caused, and thank you for understanding. <a class="ut-a lp" href="">learn more</a></h3>
+        </div>
+    {/if}
 {/if}
 
 <style>
@@ -191,6 +249,27 @@
         opacity: 0.6;
     }
 
+    .u-ts {
+        color: var(--uniColor);
+        font-family: "Trebuchet MS", sans-serif;
+        font-size: 3vw;
+        opacity: 0.55;
+
+        width: 80%;
+        text-align: center;
+
+        margin-top: 2%;
+    }
+
+    .ut-a{
+        color: #5533ebde;
+        text-decoration: none;
+    }
+
+    .lp{
+        color: #8e7ce1de;
+    }
+
     .wrapper0 {
         width: 100%;
         height: 80%;
@@ -209,6 +288,17 @@
         align-items: center;
         transition: ease-in-out 0.3s;
         justify-content: center;
+    }
+
+    .wrapper2 {
+        width: 100%;
+        height: 80%;
+        position: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: ease-in-out 0.3s;
+        flex-direction: column;
     }
 
     .content {

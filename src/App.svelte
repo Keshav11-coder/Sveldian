@@ -2,19 +2,34 @@
     import TopNav from "./TopNav.svelte";
     import Header from "./Header.svelte";
     import Content from "./Content.svelte";
-    import { null_to_empty } from "svelte/internal";
 
     let topNavVisible = true;
-    let xtend = false;
+    let search = false;
 
     let sUpdater;
+    let nUpdater;
     let callSearchClear;
+
+    let page = 0; // 0,1,2,3 home,search,notifications,job details
 </script>
 
 <div class="wrapper">
-    <TopNav Updater={sUpdater} clearer={callSearchClear} state={topNavVisible} bind:xtend />
-    <Header bind:xtend />
-    <Content bind:sUpdater bind:topNavVisible bind:xtend bind:callSearchClear />
+    <TopNav
+        sUpdater={sUpdater}
+        nUpdater={nUpdater}
+        clearer={callSearchClear}
+        state={topNavVisible}
+        bind:page
+    />
+    <Header bind:page />
+    <Content
+        bind:sUpdater
+        bind:nUpdater
+        bind:topNavVisible
+        bind:search
+        bind:callSearchClear
+        page={page}
+    />
 </div>
 
 <style>

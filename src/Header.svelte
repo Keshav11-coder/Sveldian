@@ -1,15 +1,20 @@
 <script>
-    export let xtend = false;
+    export let page = 0;
 </script>
 
-{#if !xtend}
+{#if page == 0}
     <div class="header">
         <div class="text"><h3 class="--text">For You</h3></div>
         <div class="reload" />
     </div>
-{:else if xtend}
+{:else if page == 1}
     <div class="header">
         <div class="text"><h3 class="--text">Search Results</h3></div>
+        <div class="reload" />
+    </div>
+{:else if page == 2}
+    <div class="header">
+        <div class="text"><h3 class="--text">New Notifications</h3></div>
         <div class="reload" />
     </div>
 {/if}
