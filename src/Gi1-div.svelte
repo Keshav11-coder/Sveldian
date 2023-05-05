@@ -58,11 +58,12 @@
                 : input1Error && activatorValue == 1
                 ? "border-bottom: var(--borderSize) solid red; border-top:none;border-left:none;border-right:none; border-radius:0;"
                 : ""}
+            autocomplete="off"
         />
     </div>
 {:else if deviceWidth > 1000}
     <div
-        class="{gi == 'minimum 30 words' ? 'gi-divl' : 'gi-div'}"
+        class={gi == "minimum 30 words" ? "gi-divl" : "gi-div"}
         id="border-ray-div"
     >
         {#if gi == "minimum 30 words"}
@@ -76,6 +77,7 @@
                     : input1Error && activatorValue == 1
                     ? "border-bottom: var(--borderSize) solid red; border-top:none;border-left:none;border-right:none; border-radius:0;"
                     : ""}
+                autocomplete="off"
             />
         {:else if gi != "minimum 30 words"}
             <input
@@ -89,6 +91,7 @@
                     : input1Error && activatorValue == 1
                     ? "border-bottom: var(--borderSize) solid red; border-top:none;border-left:none;border-right:none; border-radius:0;"
                     : ""}
+                autocomplete="off"
             />
         {/if}
     </div>

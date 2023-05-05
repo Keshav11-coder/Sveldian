@@ -11,6 +11,22 @@
 
 	//keyboard accessibility
 
+	$: if (index) {
+		if (index == 0) {
+			changeskip(false);
+		} else if (index == 1) {
+			changeskip(true);
+		} else if (index == 2) {
+			changeskip(false);
+		} else if (index == 3) {
+			changeskip(false);
+		} else if (index == 0) {
+			changeskip(true);
+		} else {
+			changeskip(false);
+		}
+	}
+
 	function handleKeyDown(event) {
 		if (event.key === "Enter" || event.key === " ") {
 			index =
@@ -53,7 +69,7 @@
 			}
 		} else {
 			let bool = check1i();
-			if(bool == false){
+			if (bool == false) {
 				index =
 					index != 4
 						? (index = index + 1)
@@ -63,6 +79,25 @@
 			}
 		}
 	}
+
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		const body = document.querySelector("body");
+		const doc = document.getElementById("doc");
+		const w = Math.max(
+			document.documentElement.clientWidth,
+			window.innerWidth || 0
+		);
+		const h = Math.max(
+			document.documentElement.clientHeight,
+			window.innerHeight || 0
+		);
+		body.style.width = w + "px";
+		body.style.height = h + "px";
+		doc.style.width = w + "px";
+		doc.style.height = h + "px";
+	});
 </script>
 
 <div class="document" id="doc">
@@ -84,7 +119,7 @@
 					<Sfi Value={activatorValue} {index} />
 				</div>
 			{:else if index == 1}
-				{changeskip(true)}
+				<!--{changeskip(true)}-->
 				<div class="a1" id="af">
 					<Gi2Div
 						gi1="email"
@@ -99,7 +134,7 @@
 					<Sfi Value={activatorValue} {index} />
 				</div>
 			{:else if index == 2}
-				{changeskip(false)}
+				<!--{changeskip(false)}-->
 				<div class="a1" id="af">
 					<div
 						class="description {activatorValue
@@ -113,11 +148,14 @@
 						</h4>
 					</div>
 					<Gi1Div
-						gi="{deviceWidth < 1000 ? 'click here' : deviceWidth > 1000 ? 'minimum 30 words' : ''}"
+						gi={deviceWidth < 1000
+							? "click here"
+							: deviceWidth > 1000
+							? "minimum 30 words"
+							: ""}
 						activator={true}
 						bind:activatorValue
 						bind:check1i
-						ext={true}
 					/>
 					{#if deviceWidth < 1000}
 						<!---->
@@ -126,7 +164,7 @@
 					{/if}
 				</div>
 			{:else if index == 3}
-				{changeskip(false)}
+				<!--{changeskip(false)}-->
 				<div class="a1" id="af">
 					<div
 						class="description {activatorValue
@@ -145,7 +183,6 @@
 						activator={true}
 						bind:activatorValue
 						bind:check1i
-						ext={false}
 					/>
 					{#if deviceWidth < 1000}
 						<Suggested Value={activatorValue} />
@@ -154,7 +191,7 @@
 					{/if}
 				</div>
 			{:else if index == 4}
-				{changeskip(true)}
+				<!--{changeskip(true)}-->
 				<div class="a1" id="af">
 					<div
 						class="description {activatorValue
@@ -169,7 +206,6 @@
 						activator={true}
 						bind:activatorValue
 						bind:check1i
-						ext={false}
 					/>
 					{#if deviceWidth < 1000}
 						<Suggested Value={activatorValue} />
@@ -247,7 +283,7 @@
 
 	@media (prefers-color-scheme: dark) {
 		:root {
-			--forwC: rgba(85, 51, 235, 0.871);
+			--forwC: #5533ebde;
 			--skipC: #ffffffde;
 			--oppositeC: black;
 		}
@@ -312,9 +348,9 @@
 	}
 
 	.document {
-		background-color: transparent;
 		width: 100%;
 		height: 100%;
+		background-color: transparent;
 		position: absolute;
 		z-index: 1;
 	}
