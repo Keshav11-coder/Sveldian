@@ -260,123 +260,28 @@
     }
 </script>
 
-{#if page == 0}
-    <div class="wrapper0 {topNavVisible ? '' : 'wrapper1'}">
-        <div class="content" on:scroll={handleScroll} id="content">
-            {#each items as item}
-                <div class="container" id="UIDSCI-0000">
-                    <div class="im">
-                        <img class="image" src={item.url} alt="logo" />
+<div class="wrapper0 {topNavVisible ? '' : 'wrapper1'}">
+    <div class="content" on:scroll={handleScroll} id="content">
+        {#each items as item}
+            <div class="container" id="UIDSCI-0000">
+                <div class="im">
+                    <img class="image" src={item.url} alt="logo" />
+                </div>
+                <div class="item" style="border: 0.35vw solid {item.oc};">
+                    <div class="opp">
+                        <h3 class="opp-text">{item.opp}</h3>
                     </div>
-                    <div class="item" style="border: 0.7vw solid {item.oc};">
-                        <div class="opp">
-                            <h3 class="opp-text">{item.opp}</h3>
-                        </div>
-                        <div class="company">
-                            <h3 class="cn-text">@{item.cc}</h3>
-                        </div>
-                    </div>
-                    <div class="forward" style="border: 0.7vw solid {item.oc}">
-                        <i class="fa-regular fa-solid fa-caret-right fa-2x" />
+                    <div class="company">
+                        <h3 class="cn-text">@{item.cc}</h3>
                     </div>
                 </div>
-            {/each}
-        </div>
+                <div class="forward" style="border: 0.35vw solid {item.oc}">
+                    <i class="fa-regular fa-solid fa-caret-right fa-2x" />
+                </div>
+            </div>
+        {/each}
     </div>
-{:else if page == 1}
-    {#if sval == ""}
-        <div class="wrapper0">
-            <h3 class="u-t">results will be shown here</h3>
-        </div>
-    {:else}
-        <div class="wrapper0">
-            <div class="content" on:scroll={() => handleScroll()} id="content">
-                {#each returnedItems as item}
-                    <div class="container" id="UIDSCI-0000">
-                        <div class="im">
-                            <img class="image" src={item.url} alt="logo" />
-                        </div>
-                        <div
-                            class="item"
-                            style="border: 0.7vw solid {item.oc};"
-                        >
-                            <div class="opp">
-                                <h3 class="opp-text">{item.opp}</h3>
-                            </div>
-                            <div class="company">
-                                <h3 class="cn-text">@{item.cc}</h3>
-                            </div>
-                        </div>
-                        <div
-                            class="forward"
-                            style="border: 0.7vw solid {item.oc}"
-                        >
-                            <i
-                                class="fa-regular fa-solid fa-caret-right fa-2x"
-                            />
-                        </div>
-                    </div>
-                {/each}
-            </div>
-        </div>
-    {/if}
-{:else if page == 2}
-    {#if !notifications}
-        <div class="wrapper0">
-            <div class="content" on:scroll={() => handleScroll()} id="content">
-                {#each returnedItems as item}
-                    <div class="container" id="UIDSCI-0000">
-                        <!--Unique ID Skilldian Content Item - * * * *-->
-                        <div class="im">
-                            <img class="image" src={item.url} alt="logo" />
-                        </div>
-                        <div
-                            class="item"
-                            style="border: 0.7vw solid {item.oc};"
-                        >
-                            <div
-                                class="role-r2"
-                                style="border-bottom: 0.7vw solid {item.oc};"
-                            >
-                                <h3 class="--item-t1">{item.opp}</h3>
-                            </div>
-                            <div class="b-r2">
-                                <div
-                                    class="c b-r2-i2"
-                                    style="border-right: 0.35vw solid {item.oc};"
-                                >
-                                    <h3 class="--item-t1">@{item.cc}</h3>
-                                </div>
-                                <div
-                                    class="n-rr b-r2-i2"
-                                    style="border-left: 0.35vw solid {item.oc};"
-                                >
-                                    <i
-                                        class="fa-regular fa-solid fa-caret-right fa-2x"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {/each}
-            </div>
-        </div>
-    {:else}
-        <div class="wrapper2">
-            <h3 class="u-t">
-                <a class="ut-a" href="">sign up</a> to see notifications
-            </h3>
-            <h3 class="u-ts">
-                Please note that the full app is not released yet, so your
-                account will be put on a waitlist. We're extremely sorry for the
-                inconvenience caused, and thank you for understanding. <a
-                    class="ut-a lp"
-                    href="">learn more</a
-                >
-            </h3>
-        </div>
-    {/if}
-{/if}
+</div>
 
 <style>
     @media (prefers-color-scheme: dark) {
@@ -393,34 +298,6 @@
         }
     }
 
-    .u-t {
-        color: var(--uniColor);
-        font-family: "Trebuchet MS", sans-serif;
-        font-size: 4vw;
-        opacity: 0.6;
-    }
-
-    .u-ts {
-        color: var(--uniColor);
-        font-family: "Trebuchet MS", sans-serif;
-        font-size: 3vw;
-        opacity: 0.55;
-
-        width: 80%;
-        text-align: center;
-
-        margin-top: 2%;
-    }
-
-    .ut-a {
-        color: #5533ebde;
-        text-decoration: none;
-    }
-
-    .lp {
-        color: #8e7ce1de;
-    }
-
     .wrapper0 {
         width: 100%;
         height: 70vh;
@@ -428,31 +305,21 @@
         align-items: center;
         justify-content: center;
         transition: ease-in-out 0.3s;
-        margin-top: 5%;
+        margin-top: 7%;
     }
 
     .wrapper1 {
         width: 100%;
         height: 80vh;
-        margin-top: 5%;
+        margin-top: 7%;
         display: flex;
         align-items: center;
         transition: ease-in-out 0.3s;
         justify-content: center;
-    }
-
-    .wrapper2 {
-        width: 100%;
-        height: 80%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: ease-in-out 0.3s;
-        flex-direction: column;
     }
 
     .content {
-        width: 94%;
+        width: 40%;
         height: 98%;
         overflow-y: scroll;
         padding-bottom: 10%;
@@ -472,7 +339,7 @@
 
     .container {
         animation: fadeInUp 0.3s ease-in-out forwards;
-        height: 6.5rem;
+        height: 8rem;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -481,8 +348,8 @@
     }
 
     .im {
-        width: 6.5rem;
-        height: 6.5rem;
+        width: 8rem;
+        height: 8rem;
         position: relative;
 
         margin-top: auto;
@@ -492,12 +359,12 @@
     .image {
         width: 100%;
         height: 100%;
-        border-radius: 2vw 0px 0px 2vw;
+        border-radius: 1vw 0px 0px 1vw;
     }
 
     .item {
-        border: 0.7vw solid #3b5998;
-        border-radius: 0 2vw 2vw 0;
+        border: 0.35vw solid #3b5998;
+        border-radius: 0 1vw 1vw 0;
         box-sizing: border-box;
         animation: fadeInUp 0.3s ease-in-out forwards;
         height: 100%;
@@ -516,7 +383,7 @@
 
     .opp-text {
         font-family: "Trebuchet MS", sans-serif;
-        font-size: 4.5vw;
+        font-size: 1.5vw;
         color: var(--color);
         opacity: 0.9;
     }
@@ -532,7 +399,7 @@
 
     .cn-text {
         font-family: "Trebuchet MS", sans-serif;
-        font-size: 3.8vw;
+        font-size: 1.3vw;
         color: var(--color);
         opacity: 0.75;
     }
@@ -541,7 +408,7 @@
         width: 16%;
         height: 100%;
         margin-left: 2%;
-        border-radius: 2vw;
+        border-radius: 1vw;
         box-sizing: border-box;
 
         display: flex;

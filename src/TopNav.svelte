@@ -7,6 +7,10 @@
     export let clearer;
 
     let Value = true;
+    let st = false;
+
+    const deviceWidth = window.innerWidth;
+
     function handleKd(event) {}
 
     function esearch() {
@@ -48,9 +52,16 @@
         searchValue = em.value;
         nUpdater();
     }
+
+    function handleKeyPress(event) {
+        if (event.key === "Enter" || event.keyCode === 13) {
+            getSearch();
+        }
+    }
 </script>
 
 <div class={state ? "topNav" : "navFocus"}>
+    <!---->
     {#if page == 0}<!---->{:else if page == 1}
         <div class="cancel" on:click={clearSearch} on:keydown={handleKd} />
     {:else if page == 2}
@@ -66,6 +77,7 @@
             placeholder="search..."
             class="i {Value ? '' : 'd'}"
             id="isearch"
+            on:keydown={handleKeyPress}
         />
     </div>
     <div class="page-title {Value ? '' : 'pt-r'}">
@@ -130,7 +142,8 @@
     }
 
     .search {
-        width: 9%;
+        width: 2.2rem;
+        height: 2.2rem;
         border: 0.6vw solid #5533ebde;
         border-radius: 8px;
         align-self: center;
@@ -146,40 +159,24 @@
         opacity: 1;
     }
 
-    .search:after {
-        display: block;
-        padding-bottom: 100%;
-        content: "";
-        margin-left: 1%;
-    }
-
     .search-h {
-        width: 80%;
+        width: 72%;
+        height: 2.2rem;
         background: none;
         margin-left: 2%;
         transition: ease-in-out 0.3s;
         opacity: 1;
     }
 
-    .search-h:after {
-        display: block;
-        padding-bottom: 0%;
-        content: "";
-    }
-
     .search-d {
-        width: 80%;
+        width: 85%;
+        height: 2.2rem;
         background: none;
         margin-left: 2%;
-        transition: ease-in-out 0s;
+        transition: ease-in-out 0.3s;
         opacity: 0;
     }
 
-    .search-d:after {
-        display: block;
-        padding-bottom: 0%;
-        content: "";
-    }
     .page-title {
         width: 24%;
         height: 9%;
@@ -198,7 +195,8 @@
     }
 
     .notifications {
-        width: 9%;
+        width: 2.2rem;
+        height: 2.2rem;
         border: 0.6vw solid var(--wtbo);
         border-radius: 8px;
         align-self: center;
@@ -212,12 +210,6 @@
         transition: ease-in-out 0.3s;
     }
 
-    .notifications:after {
-        display: block;
-        padding-bottom: 100%;
-        content: "";
-    }
-
     .pt-r {
         display: none;
     }
@@ -228,8 +220,7 @@
 
     .i {
         width: 100%;
-        padding-top: 3.8%;
-        padding-bottom: 3.8%;
+        height: 100%;
         background-color: transparent;
         border-style: none;
         outline: none;
@@ -247,11 +238,9 @@
     }
 
     ::placeholder {
-        display: flex;
-        align-self: center;
         font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
             "Lucida Sans", Arial, sans-serif;
-        font-size: 3vw;
+        font-size: 3.5vw;
         color: var(--wtb);
         opacity: 0.55;
     }
@@ -262,7 +251,8 @@
     }
 
     .cancel {
-        width: 9%;
+        width: 2.2rem;
+        height: 2.2rem;
         border: 0.6vw solid red;
         border-radius: 8px;
         align-self: center;
@@ -274,11 +264,5 @@
         background-repeat: no-repeat;
         background-position: center;
         transition: ease-in-out 0.3s;
-    }
-
-    .cancel:after {
-        display: block;
-        padding-bottom: 100%;
-        content: "";
     }
 </style>

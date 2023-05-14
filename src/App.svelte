@@ -3,6 +3,11 @@
     import Header from "./Header.svelte";
     import Content from "./Content.svelte";
 
+    import TopNav_L from "./TopNav_L.svelte";
+    import Header_L from "./Header_L.svelte";
+    import Content_L from "./Content_L.svelte";
+    import Menu from "./menu.svelte";
+
     let topNavVisible = true;
     let search = false;
 
@@ -11,25 +16,33 @@
     let callSearchClear;
 
     let page = 0; // 0,1,2,3 home,search,notifications,job details
+
+    const deviceWidth = window.innerWidth;
 </script>
 
 <div class="wrapper">
-    <TopNav
-        sUpdater={sUpdater}
-        nUpdater={nUpdater}
-        clearer={callSearchClear}
-        state={topNavVisible}
-        bind:page
-    />
-    <Header bind:page />
-    <Content
-        bind:sUpdater
-        bind:nUpdater
-        bind:topNavVisible
-        bind:search
-        bind:callSearchClear
-        page={page}
-    />
+    {#if deviceWidth < 1000}
+        <TopNav
+            {sUpdater}
+            {nUpdater}
+            clearer={callSearchClear}
+            state={topNavVisible}
+            bind:page
+        />
+        <Header bind:page />
+        <Content
+            bind:sUpdater
+            bind:nUpdater
+            bind:topNavVisible
+            bind:callSearchClear
+            {page}
+        />
+    {:else if deviceWidth > 1000}
+        <Menu bind:topNavVisible/>
+        <TopNav_L bind:topNavVisible/>
+        <Header_L />
+        <Content_L bind:topNavVisible />
+    {/if}
 </div>
 
 <style>
@@ -48,5 +61,8 @@
     .wrapper {
         width: 100vw;
         height: 98vh;
+    }
+
+    @media only screen and (min-width: 1000px) {
     }
 </style>
