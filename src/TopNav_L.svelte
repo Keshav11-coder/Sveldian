@@ -1,5 +1,9 @@
 <script>
-    export let topNavVisible
+    export let topNavVisible;
+
+    export let sUpdater;
+
+    export let search = false;
 
     let react_sb = false;
 
@@ -7,6 +11,15 @@
 
     function s_react(new_) {
         react_sb = new_;
+    }
+
+    function searcher() {
+        let em = document.querySelector("input");
+        let value = em.value;
+        if (value != "") {
+            sUpdater(value);
+            search = true;
+        }
     }
 </script>
 
@@ -17,7 +30,7 @@
     <div class="search-i" on:click={() => s_react(true)} on:keydown={handleKd}>
         <input class="dinput" placeholder="search ..." />
     </div>
-    <div class="sButton {react_sb ? 'sb_react s' : ''}">
+    <div class="sButton {react_sb ? 'sb_react s' : ''}" on:click={searcher}>
         <img class="simg" src="../search.png" alt="" />
     </div>
 </div>
@@ -34,14 +47,15 @@
         transition: ease-in-out 0.4s;
     }
 
-    .snav-hide{
+    .snav-hide {
         margin-top: 0%;
         transition: ease-in-out 0.4s;
+        z-index: 5;
     }
 
     .sButton {
-        width: 4rem;
-        height: 4rem;
+        width: 3.5rem;
+        height: 3.5rem;
         background-color: #5533ebde;
         border-radius: 6px;
         transition: ease-in-out 0.4s;
@@ -52,7 +66,7 @@
     }
 
     .search-i {
-        height: 4rem;
+        height: 3.5rem;
         width: 40%;
         border-radius: 6px;
         transition: ease-in-out 0.4s;
@@ -60,6 +74,7 @@
         border: 0.2vw solid #5533ebde;
 
         box-sizing: border-box;
+        z-index: 5;
     }
 
     .sb_react {
@@ -81,15 +96,17 @@
         padding-left: 5%;
         box-sizing: border-box;
 
-        background:transparent;
+        background: transparent;
         color: white;
+        z-index: 5;
     }
 
     ::placeholder {
         font-size: 1vw;
-        color :white;
-        opacity: .55;
+        color: white;
+        opacity: 0.55;
         font-family: "Trebuchet MS", sans-serif;
+        z-index: 5;
     }
 
     .r {
@@ -100,8 +117,8 @@
     }
 
     .rimg {
-        width: 3rem;
-        height: 2rem;
+        width: 2.5rem;
+        height: 1.5rem;
     }
 
     .s {
@@ -112,11 +129,12 @@
     }
 
     .simg {
-        width: 2rem;
-        height: 2rem;
+        width: 1.5rem;
+        height: 1.5rem;
     }
 
-    .r:hover,.s:hover{
+    .r:hover,
+    .s:hover {
         cursor: pointer;
     }
 </style>

@@ -7,6 +7,7 @@
     import Header_L from "./Header_L.svelte";
     import Content_L from "./Content_L.svelte";
     import Menu from "./menu.svelte";
+    import Guide from "./guide.svelte";
 
     let topNavVisible = true;
     let search = false;
@@ -39,9 +40,10 @@
         />
     {:else if deviceWidth > 1000}
         <Menu bind:topNavVisible/>
-        <TopNav_L bind:topNavVisible/>
+        <TopNav_L sUpdater={sUpdater} bind:search bind:topNavVisible/>
         <Header_L />
-        <Content_L bind:topNavVisible />
+        <Content_L bind:search bind:topNavVisible bind:sUpdater />
+        <Guide index=1></Guide>
     {/if}
 </div>
 

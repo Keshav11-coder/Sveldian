@@ -9,225 +9,48 @@
     export let topNavVisible = true;
     export let page = 0;
 
+    export let search = false;
+
     export const callSearchClear = function callSearchClear() {
         sval = "";
     };
 
-    /*async function get(url) {
+    let items = [];
+    let results = [];
+
+    async function get_search(searchString) {
+        console.log(searchString)
+        let url = `http://localhost:3000/api?database=skilldian&collection=search&amount=50&search=`+searchString;
         const response = await fetch(url);
         var data = await response.json();
         console.log(data);
+        console.log("data");
+        search = true;
+
+        results = data;
+    }
+
+    async function get_items(url) {
+        url = `http://localhost:3000/api?database=skilldian&collection=suggested&amount=50`;
+        const response = await fetch(url);
+        var data = await response.json();
+        console.log(data);
+        search = false;
+
         items = data;
     }
 
-    get("http://localhost:3000/api/");*/
+    get_items();
 
     let notifications = [];
 
-    let items = [
-        // turn into fetch
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: `red`,
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "green",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-    ];
-
-    let results = [
-        // turn into fetch
-        {
-            url: "../fb.png",
-            opp: "Web Developer",
-            cc: "FaceBook",
-            oc: "coral",
-        },
-        {
-            url: "../fb.png",
-            opp: "Database manager",
-            cc: "FaceBook",
-            oc: "gray",
-        },
-        {
-            url: "../fb.png",
-            opp: "Backend Developer",
-            cc: "FaceBook",
-            oc: "blue",
-        },
-    ];
-
     export const sUpdater = function sUpdater(data) {
-        if (data != "" && page == 1) {
+        if (data != "") {
             sval = data;
-            // client.js
-            const searchString = "backend developer";
 
-            async function get(url) {
-                const response = await fetch(url);
-                var data = await response.json();
-                console.log(data);
-                results = [];
-                results.push(data);
-                returnedItems = updateContent(results);
-            }
-
-            get("http://localhost:3000/api/");
+            get_search(data);
+        } else {
+            
         }
     };
 
@@ -262,24 +85,45 @@
 
 <div class="wrapper0 {topNavVisible ? '' : 'wrapper1'}">
     <div class="content" on:scroll={handleScroll} id="content">
-        {#each items as item}
-            <div class="container" id="UIDSCI-0000">
-                <div class="im">
-                    <img class="image" src={item.url} alt="logo" />
-                </div>
-                <div class="item" style="border: 0.35vw solid {item.oc};">
-                    <div class="opp">
-                        <h3 class="opp-text">{item.opp}</h3>
+        {#if !search}
+            {#each items as item}
+                <div class="container" id="UIDSCI-0000">
+                    <div class="im">
+                        <img class="image" src={item.url} alt="logo" />
                     </div>
-                    <div class="company">
-                        <h3 class="cn-text">@{item.cc}</h3>
+                    <div class="item" style="border: 0.25vw solid {item.oc};">
+                        <div class="opp">
+                            <h3 class="opp-text">{item.opp}</h3>
+                        </div>
+                        <div class="company">
+                            <h3 class="cn-text">@{item.cc}</h3>
+                        </div>
+                    </div>
+                    <div class="forward" style="border: 0.25vw solid {item.oc}">
+                        <i class="fa-regular fa-solid fa-caret-right fa-2x" />
                     </div>
                 </div>
-                <div class="forward" style="border: 0.35vw solid {item.oc}">
-                    <i class="fa-regular fa-solid fa-caret-right fa-2x" />
+            {/each}
+        {:else if search}
+            {#each results as item}
+                <div class="container" id="UIDSCI-0000">
+                    <div class="im">
+                        <img class="image" src={item.url} alt="logo" />
+                    </div>
+                    <div class="item" style="border: 0.25vw solid {item.oc};">
+                        <div class="opp">
+                            <h3 class="opp-text">{item.opp}</h3>
+                        </div>
+                        <div class="company">
+                            <h3 class="cn-text">@{item.cc}</h3>
+                        </div>
+                    </div>
+                    <div class="forward" style="border: 0.25vw solid {item.oc}">
+                        <i class="fa-regular fa-solid fa-caret-right fa-2x" />
+                    </div>
                 </div>
-            </div>
-        {/each}
+            {/each}
+        {/if}
     </div>
 </div>
 
@@ -319,7 +163,9 @@
     }
 
     .content {
-        width: 40%;
+        width: 100%;
+        padding-left: 30%;
+        padding-right: 30%;
         height: 98%;
         overflow-y: scroll;
         padding-bottom: 10%;
@@ -368,7 +214,7 @@
         box-sizing: border-box;
         animation: fadeInUp 0.3s ease-in-out forwards;
         height: 100%;
-        width: 58%;
+        width: 60%;
         /*box-shadow: -6px 0px 35px 0px rgba(0, 0, 0, 0.75);*/
     }
 
@@ -405,7 +251,7 @@
     }
 
     .forward {
-        width: 16%;
+        width: 19%;
         height: 100%;
         margin-left: 2%;
         border-radius: 1vw;
@@ -442,25 +288,22 @@
 
     /* scrollbar track */
     ::-webkit-scrollbar-track {
-        background-color: transparent;
-        border-radius: 10px;
+        display: none;
     }
 
     /* scrollbar thumb */
     ::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 10px;
+        display: none;
     }
 
     /* scrollbar corner */
     ::-webkit-scrollbar-corner {
-        background-color: #f1f1f1;
+        display: none;
     }
 
     /* scrollbar width and height */
     ::-webkit-scrollbar {
-        width: 5px;
-        height: 10px;
+        display: none;
     }
 
     .fa-caret-right {

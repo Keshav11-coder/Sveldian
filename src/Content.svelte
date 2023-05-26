@@ -13,14 +13,14 @@
         sval = "";
     };
 
-    /*async function get(url) {
+    async function get(url) {
         const response = await fetch(url);
         var data = await response.json();
         console.log(data);
-        items = data;
+        items = data
     }
 
-    get("http://localhost:3000/api/");*/
+    get("http://localhost:3000/api/");
 
     let notifications = [];
 
