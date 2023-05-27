@@ -126,55 +126,93 @@
             url: "../fb.png",
             opp: "Web Developer",
             cc: "FaceBook",
-            oc: "coral",
+            oc: `red`,
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
         },
         {
             url: "../fb.png",
             opp: "Database manager",
             cc: "FaceBook",
-            oc: "gray",
+            oc: "green",
+            type: "else",
         },
         {
             url: "../fb.png",
             opp: "Backend Developer",
             cc: "FaceBook",
             oc: "blue",
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
         },
         {
             url: "../fb.png",
             opp: "Web Developer",
             cc: "FaceBook",
-            oc: "coral",
+            oc: `red`,
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
         },
         {
             url: "../fb.png",
             opp: "Database manager",
             cc: "FaceBook",
-            oc: "gray",
+            oc: "green",
+            type: "else",
         },
         {
             url: "../fb.png",
             opp: "Backend Developer",
             cc: "FaceBook",
             oc: "blue",
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
         },
         {
             url: "../fb.png",
             opp: "Web Developer",
             cc: "FaceBook",
-            oc: "coral",
+            oc: `red`,
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
         },
         {
             url: "../fb.png",
             opp: "Database manager",
             cc: "FaceBook",
-            oc: "gray",
+            oc: "green",
+            type: "else",
         },
         {
             url: "../fb.png",
             opp: "Backend Developer",
             cc: "FaceBook",
             oc: "blue",
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
+        },
+        {
+            url: "../fb.png",
+            opp: "Web Developer",
+            cc: "FaceBook",
+            oc: `red`,
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
+        },
+        {
+            url: "../fb.png",
+            opp: "Database manager",
+            cc: "FaceBook",
+            oc: "green",
+            type: "else",
+        },
+        {
+            url: "../fb.png",
+            opp: "Backend Developer",
+            cc: "FaceBook",
+            oc: "blue",
+            type: "premium",
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit sem eu nisl fermentum ultrices. Duis suscipit auctor ex ac.`,
         },
     ];
 
@@ -251,15 +289,20 @@
                             <div class="im">
                                 <img class="image" src={item.url} alt="logo" />
                             </div>
-                            <div class="forward">
+                            <div class="forward" style="border: 0.8vw solid {item.oc};">
                                 <i
                                     class="fa-regular fa-solid fa-caret-right fa-1x"
                                 />
                             </div>
                         </div>
                     {:else}
-                        <div class="im">
+                        <div class="im-normal">
                             <img class="image" src={item.url} alt="logo" />
+                        </div>
+                        <div class="forward-normal" style="border: 0.8vw solid {item.oc};">
+                            <i
+                                class="fa-regular fa-solid fa-caret-right fa-1x"
+                            />
                         </div>
                     {/if}
                 </div>
@@ -277,29 +320,58 @@
         <div class="wrapper0">
             <div class="content" on:scroll={handleScroll} id="content">
                 {#each returnedItems as item}
-                    <div class="container" id="UIDSCI-0000">
-                        <div class="im">
-                            <img class="image" src={item.url} alt="logo" />
-                        </div>
-                        <div
-                            class="item"
-                            style="border: 0.7vw solid {item.oc};"
-                        >
-                            <div class="opp">
-                                <h3 class="opp-text">{item.opp}</h3>
+                    <div
+                        class="container{item.type == 'premium'
+                            ? '-premium'
+                            : ''}"
+                        id="UIDSCI-0000"
+                    >
+                        <div class="item-wrap">
+                            <div
+                                class="item{item.type == 'premium'
+                                    ? '-premium'
+                                    : ''}"
+                            >
+                                <div class="company">
+                                    <h3 class="cn-text">{item.cc}</h3>
+                                </div>
+                                <div class="opp">
+                                    <h3 class="opp-text">{item.opp}</h3>
+                                </div>
                             </div>
-                            <div class="company">
-                                <h3 class="cn-text">@{item.cc}</h3>
+                            {#if item.type == "premium"}
+                                <div class="description">
+                                    <h3 class="description-text">
+                                        {item.description}
+                                    </h3>
+                                </div>
+                            {/if}
+                        </div>
+                        {#if item.type == "premium"}
+                            <div class="image-wrap">
+                                <div class="im">
+                                    <img
+                                        class="image"
+                                        src={item.url}
+                                        alt="logo"
+                                    />
+                                </div>
+                                <div class="forward" style="border: 0.8vw solid {item.oc};">
+                                    <i
+                                        class="fa-regular fa-solid fa-caret-right fa-1x"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div
-                            class="forward"
-                            style="border: 0.7vw solid {item.oc}"
-                        >
-                            <i
-                                class="fa-regular fa-solid fa-caret-right fa-2x"
-                            />
-                        </div>
+                        {:else}
+                            <div class="im-normal">
+                                <img class="image" src={item.url} alt="logo" />
+                            </div>
+                            <div class="forward-normal" style="border: 0.8vw solid {item.oc};">
+                                <i
+                                    class="fa-regular fa-solid fa-caret-right fa-1x"
+                                />
+                            </div>
+                        {/if}
                     </div>
                 {/each}
             </div>
@@ -310,32 +382,58 @@
         <div class="wrapper0">
             <div class="content" on:scroll={() => handleScroll()} id="content">
                 {#each returnedItems as item}
-                    <div class="container" id="UIDSCI-0000">
-                        <!--Unique ID Skilldian Content Item - * * * *-->
-                        <div class="im">
-                            <img class="image" src={item.url} alt="logo" />
-                        </div>
-                        <div class="item">
-                            <div class="role-r2">
-                                <h3 class="--item-t1">{item.opp}</h3>
-                            </div>
-                            <div class="b-r2">
-                                <div
-                                    class="c b-r2-i2"
-                                    style="border-right: 0.35vw solid {item.oc};"
-                                >
-                                    <h3 class="--item-t1">@{item.cc}</h3>
+                    <div
+                        class="container{item.type == 'premium'
+                            ? '-premium'
+                            : ''}"
+                        id="UIDSCI-0000"
+                    >
+                        <div class="item-wrap">
+                            <div
+                                class="item{item.type == 'premium'
+                                    ? '-premium'
+                                    : ''}"
+                            >
+                                <div class="company">
+                                    <h3 class="cn-text">{item.cc}</h3>
                                 </div>
-                                <div
-                                    class="n-rr b-r2-i2"
-                                    style="border-left: 0.35vw solid {item.oc};"
-                                >
+                                <div class="opp">
+                                    <h3 class="opp-text">{item.opp}</h3>
+                                </div>
+                            </div>
+                            {#if item.type == "premium"}
+                                <div class="description">
+                                    <h3 class="description-text">
+                                        {item.description}
+                                    </h3>
+                                </div>
+                            {/if}
+                        </div>
+                        {#if item.type == "premium"}
+                            <div class="image-wrap">
+                                <div class="im">
+                                    <img
+                                        class="image"
+                                        src={item.url}
+                                        alt="logo"
+                                    />
+                                </div>
+                                <div class="forward" style="border: 0.8vw solid {item.oc};">
                                     <i
-                                        class="fa-regular fa-solid fa-caret-right fa-2x"
+                                        class="fa-regular fa-solid fa-caret-right fa-1x"
                                     />
                                 </div>
                             </div>
-                        </div>
+                        {:else}
+                            <div class="im-normal">
+                                <img class="image" src={item.url} alt="logo" />
+                            </div>
+                            <div class="forward-normal" style="border: 0.8vw solid {item.oc};">
+                                <i
+                                    class="fa-regular fa-solid fa-caret-right fa-1x"
+                                />
+                            </div>
+                        {/if}
                     </div>
                 {/each}
             </div>
@@ -440,7 +538,7 @@
 
     .wrapper0 {
         width: 100%;
-        height: 70vh;
+        height: 71vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -450,7 +548,7 @@
 
     .wrapper1 {
         width: 100%;
-        height: 80vh;
+        height: 90vh;
         margin-top: 15%;
         display: flex;
         align-items: center;
@@ -472,6 +570,7 @@
         width: 94%;
         height: 98%;
         overflow-y: scroll;
+        overflow-x: hidden;
         padding-bottom: 10%;
     }
 
@@ -497,7 +596,7 @@
         margin-bottom: 5%;
         align-items: center;
 
-        border-left: 1vw solid red;
+        border-left: 1vw solid rgb(113, 113, 113);
         box-sizing: border-box;
     }
 
@@ -510,7 +609,7 @@
 
         margin-bottom: 5%;
 
-        border-left: 1vw solid red;
+        border-left: 1vw solid rgb(125, 78, 78);
         box-sizing: border-box;
     }
 
@@ -522,9 +621,16 @@
         margin-bottom: auto;
     }
 
+    .im-normal {
+        width: 5rem;
+        height: 5rem;
+
+        margin-bottom: auto;
+    }
+
     .image {
-        width: 100%;
-        height: 100%;
+        width: 5rem;
+        height: 5rem;
         border-radius: 1.5vw;
     }
 
@@ -542,7 +648,7 @@
         height: 2.5rem;
         margin: auto;
         border-radius: 1.5vw;
-        border: 1vw solid #5533ebde;
+        border: 0.8vw solid #5533ebde;
 
         box-sizing: border-box;
 
@@ -550,22 +656,24 @@
         place-items: center;
     }
 
+    .forward-normal {
+        height: 100%;
+        width: 2.5rem;
+        border-radius: 1.5vw;
+        border: 0.8vw solid #5533ebde;
+
+        box-sizing: border-box;
+
+        display: grid;
+        place-items: center;
+        margin-left: 1%;
+    }
+
     .item {
         box-sizing: border-box;
         animation: fadeInUp 0.3s ease-in-out forwards;
         height: 2.5rem;
         width: 80%;
-        /*box-shadow: -6px 0px 35px 0px rgba(0, 0, 0, 0.75);*/
-    }
-
-    .options {
-        width: 80%;
-        height: 1.5rem;
-        box-sizing: border-box;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .fa-caret-right {
@@ -577,7 +685,6 @@
         animation: fadeInUp 0.3s ease-in-out forwards;
         height: 2.5rem;
         width: 80%;
-        /*box-shadow: -6px 0px 35px 0px rgba(0, 0, 0, 0.75);*/
     }
 
     .company {
@@ -602,7 +709,8 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin-left: 5%;
+        margin-left: 6%;
+        margin-top: 2%;
     }
 
     .opp-text {

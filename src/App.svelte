@@ -1,5 +1,6 @@
 <script>
     import TopNav from "./TopNav.svelte";
+    import bottomNav from "./BottomNav.svelte";
     import Header from "./Header.svelte";
     import Content from "./Content.svelte";
 
@@ -8,6 +9,7 @@
     import Content_L from "./Content_L.svelte";
     import Menu from "./menu.svelte";
     import Guide from "./guide.svelte";
+    import BottomNav from "./BottomNav.svelte";
 
     let topNavVisible = true;
     let search = false;
@@ -31,7 +33,7 @@
             bind:page
         />
         {#if page == 1}
-        <Header bind:page bind:topNavVisible></Header>
+            <Header bind:page bind:topNavVisible />
         {/if}
         <Content
             bind:sUpdater
@@ -40,16 +42,18 @@
             bind:callSearchClear
             {page}
         />
+        <BottomNav state={topNavVisible} bind:page/>
     {:else if deviceWidth > 1000}
-        <Menu bind:topNavVisible/>
-        <TopNav_L sUpdater={sUpdater} bind:search bind:topNavVisible/>
+        <Menu bind:topNavVisible />
+        <TopNav_L {sUpdater} bind:search bind:topNavVisible />
         <Header_L />
         <Content_L bind:search bind:topNavVisible bind:sUpdater />
-        <Guide index=1></Guide>
+        <Guide index="1" />
     {/if}
 </div>
 
 <style>
+
     @media (prefers-color-scheme: dark) {
         :root {
             --uniColor: white;

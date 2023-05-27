@@ -44,7 +44,7 @@
         page = 0;
         Value = true;
         clearer();
-        console.log("enter clearnotif")
+        console.log("enter clearnotif");
     }
 
     function getNotif() {
@@ -68,52 +68,52 @@
         <div class="cancel" on:click={clearNotif} on:keydown={handleKd} />
     {/if}
     {#if page == 1}
-        <div class="page-title {Value ? '' : 'pt-r'}">
+        <div class="pt-r">
             <h3 class="--title">Home</h3>
         </div>
         <div
             on:click={esearch}
             on:keydown={handleKd}
-            class="search {Value ? '' : 'search-h'}"
+            class="search-h"
         >
             <input
                 type="search"
                 placeholder="search..."
-                class="i {Value ? '' : 'd'}"
+                class="i d"
                 id="isearch"
                 on:keydown={handleKeyPress}
             />
         </div>
         <div
-            class="notifications {Value ? '' : 'notifications-h'}"
+            class="notifications notifications-h"
             on:click={getSearch}
             on:keydown={handleKd}
         />
     {:else if page == 0}
         <div
-            class="notifications {Value ? '' : 'notifications-h'}"
+            class="notifications"
             on:click={enotif}
             on:keydown={handleKd}
         />
 
-        <div class="page-title {Value ? '' : 'pt-r'}">
+        <div class="page-title">
             <h3 class="--title">For you</h3>
         </div>
         <div
             on:click={esearch}
             on:keydown={handleKd}
-            class="search {Value ? '' : 'search-h'}"
+            class="search"
         >
             <input
                 type="search"
                 placeholder="search..."
-                class="i {Value ? '' : 'd'}"
+                class="i"
                 id="isearch"
                 on:keydown={handleKeyPress}
             />
         </div>
     {:else if page == 2}
-        <div class="cfill"></div>
+        <div class="cfill" />
     {/if}
 </div>
 
@@ -186,7 +186,7 @@
         border-bottom: 0.6vw solid #5533eba3;
     }
 
-    .search-h:hover{
+    .search-h:hover {
         animation: fade_border cubic-bezier(0.77, 0, 0.175, 1) infinite 2s;
     }
 
@@ -214,7 +214,7 @@
         align-self: center;
         justify-content: flex-end;
         margin-right: 1%;
-        margin-left: 3%;
+        margin-left: 3.2%;
         background-image: var(--bellUrl);
         background-size: 60% 60%;
         background-repeat: no-repeat;
@@ -282,31 +282,31 @@
         animation: fade ease 0.4s;
     }
 
-    .cfill{
-        width: 21.2rem;
+    .cfill {
+        width: 23.2rem;
         height: 7%;
     }
 
-    @keyframes fade{
-        0%{
+    @keyframes fade {
+        0% {
             opacity: 0;
         }
 
-        100%{
+        100% {
             opacity: 1;
         }
     }
 
-    @keyframes fade_border{
-        0%{
+    @keyframes fade_border {
+        0% {
             border-bottom: 0.6vw solid #5533eba3;
         }
 
-        50%{
+        50% {
             border-bottom: 0.6vw solid #5533eb00;
         }
 
-        100%{
+        100% {
             border-bottom: 0.6vw solid #5533eba3;
         }
     }
